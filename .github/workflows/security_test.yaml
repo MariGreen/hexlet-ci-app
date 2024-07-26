@@ -1,20 +1,11 @@
-name: Run Snyk to check for vulnerabilities
+name: Example workflow for Node using Snyk
 on: push
 jobs:
   security:
     runs-on: ubuntu-latest
-    strategy:
-      # Node versions list
-      matrix:
-        node-version: [20.x]
-
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - uses: snyk/actions/node@master
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-
-      env:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
